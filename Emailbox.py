@@ -183,10 +183,13 @@ if __name__ == "__main__":
 					user_input_blocks = blocks_needed()
 					
 					number_of_blocks = MailboxAPI.MailboxRepository.Assign(user_input_blocks)
+					count_blocks = 0
+					for blocks in number_of_blocks:
+						count_blocks = count_blocks + 1
 					
 					#Two blocks needed
-					if number_of_blocks[1] != False:
-						print "\nPlease put your package in the box"
+					if count_blocks == 2:
+						print "\nPlease put your package in the box\n"
 						
 						user_input_confirm = confirm()
 								
@@ -204,10 +207,10 @@ if __name__ == "__main__":
 						sleep(3)
 						
 					#One block needed	
-					elif number_of_blocks[1] == False:
+					elif count_blocks == 1:
 						#put in the LEFT block
-						if number_of_blocks.id == 1:
-							print "\nPlease put your package in the LEFT block"
+						if number_of_blocks[0].id == 1:
+							print "\nPlease put your package in the LEFT block\n"
 							
 							user_input_confirm = confirm()
 								
@@ -224,8 +227,8 @@ if __name__ == "__main__":
 							sleep(3)
 							
 						#put in the RIGHT block	
-						elif number_of_blocks.id == 2:
-							print "\nPlease put your package in the RIGHT block"
+						elif number_of_blocks[0].id == 2:
+							print "\nPlease put your package in the RIGHT block\n"
 							
 							user_input_confirm = confirm()
 								
@@ -242,6 +245,7 @@ if __name__ == "__main__":
 						
 							
 							sleep(3)
+					#No Space		
 					elif number_of_blocks == False:
 						print "No Space!"
 						sleep(3)
