@@ -240,9 +240,7 @@ if __name__ == "__main__":
 										
 							#cancel closing box	
 							elif user_input_confirm ==2:
-								user_input_root = 0
-						
-						
+								user_input_root = 0												
 							
 							sleep(3)
 					#No Space		
