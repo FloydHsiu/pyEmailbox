@@ -119,7 +119,7 @@ if __name__ == "__main__":
 	'''
 	
 	CreateDatabase.InitializeDatabase()
-	#CreateDatabase.AddSystemData()
+	CreateDatabase.AddSystemData()
 	clientList = ClientAPI.ClientRepository.GetAll()
 	#print clientList
 	mailboxList = MailboxAPI.MailboxRepository.GetAll()
