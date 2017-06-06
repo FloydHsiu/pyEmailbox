@@ -43,8 +43,9 @@ def AddSystemData():
     cursor.execute("INSERT INTO MAILBOXES VALUES(NULL, 0)")
 
     #Add Your Own Data
-    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '4F','Test', 'Test', 'floydhsiu@gmail.com')")
-    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '5F','Test', 'Test', 'test@test.com')")
+    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '1F', 'Wei-Ming', 'Chen', 'jj251510319013@gmail.com')")
+    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '2F', 'Hsiu-Chi', 'Chang', 's94040511s@gmail.com')")
+    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '3F', 'Cheng-Yuan', 'Li', 's94040511s@gmail.com')")
 
     conn.commit()
     conn.close()
