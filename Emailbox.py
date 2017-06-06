@@ -25,23 +25,23 @@ def electromagnetic_setup():
 '''
 	
 def left_box_open():	
-	#GPIO.out(13, GPIO.HIGH)
-	#GPIO.out(15, GPIO.LOW)
+	#GPIO.output(13, GPIO.HIGH)
+	#GPIO.output(15, GPIO.LOW)
 	print "\nLeft box is opened!"
 
 def left_box_close():
-	#GPIO.out(13, GPIO.LOW)
-	#GPIO.out(15, GPIO.LOW)
+	#GPIO.output(13, GPIO.LOW)
+	#GPIO.output(15, GPIO.LOW)
 	print "\nLeft box is closed!"
 	
 def right_box_open():
-	#GPIO.out(31, GPIO.HIGH)
-	#GPIO.out(33, GPIO.LOW)
+	#GPIO.output(31, GPIO.HIGH)
+	#GPIO.output(33, GPIO.LOW)
 	print "\nRight box is opened!"
 
 def right_box_close():
-	#GPIO.out(31, GPIO.LOW)
-	#GPIO.out(33, GPIO.LOW)
+	#GPIO.output(31, GPIO.LOW)
+	#GPIO.output(33, GPIO.LOW)
 	print "\nRigth box is closed!"
 	
 	
@@ -118,8 +118,11 @@ if __name__ == "__main__":
 	right_box_close()
 	'''
 	
+	thread = MailSender.ResendPasswordMailThread()
+	thread.start()
+	
 	CreateDatabase.InitializeDatabase()
-	CreateDatabase.AddSystemData()
+	#CreateDatabase.AddSystemData()
 	clientList = ClientAPI.ClientRepository.GetAll()
 	#print clientList
 	mailboxList = MailboxAPI.MailboxRepository.GetAll()
@@ -184,8 +187,13 @@ if __name__ == "__main__":
 					
 					number_of_blocks = MailboxAPI.MailboxRepository.Assign(user_input_blocks)
 					count_blocks = 0
+					
 					for blocks in number_of_blocks:
-						count_blocks = count_blocks + 1
+						if blocks.inused == 0:
+							count_blocks = count_blocks + 1
+					
+					print count_blocks
+					sleep(5)
 					
 					#Two blocks needed
 					if count_blocks == 2:
@@ -334,13 +342,13 @@ if __name__ == "__main__":
 			system_open_box = MailboxAPI.MailboxRepository.GetPackage(str(user_input_password))
 			print system_open_box
 			
-			if system_open_box == 1:
+			if system_open_box == [1]:
 				left_box_open()
 				print "Please take out your package from LEFT block!"
-			elif system_open_box == 2:
+			elif system_open_box == [2]:
 				right_box_open()
 				print "Please take out your package from RIGHT block!"
-			elif system_open_box == 3:
+			elif system_open_box == [1, 2]:
 				left_box_open()
 				right_box_open()
 				print "Please take out your package!"
@@ -351,6 +359,7 @@ if __name__ == "__main__":
 			sleep(1)
 		
 	GPIO.cleanup()	
+	thread.stop()
 		
 		
 		
