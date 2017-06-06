@@ -1,3 +1,4 @@
 *.pyc
 .vscode/
 *.db
+API/Config.py
