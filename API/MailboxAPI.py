@@ -86,7 +86,7 @@ class MailboxRepository:
             for order in orders:
                 client_id = order[0]
                 last_remind = order[1]
-                if last_remind > 3600*20:
+                if last_remind > 60:
                     #change password
                     pwd = ''.join(random.choice(string.digits) for _ in range(8))
                     pwdHashing = MailboxRepository.PwdHashing(pwd)

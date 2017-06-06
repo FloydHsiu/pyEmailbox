@@ -1,6 +1,8 @@
 import smtplib
 import threading
+import time
 import Config
+import MailboxAPI
 
 def SendEmail(user, pwd, recipient, subject, body):
 
@@ -35,6 +37,27 @@ class SendPasswordMailThread(threading.Thread):
         self.recipient = recipient
         self.subject = 'Mailbox Password'
         self.body = 'Password:' + pwd
-    
+
     def run(self):
         SendEmail(self.user, self.pwd, self.recipient, self.subject, self.body)
+
+class ResendPasswordMailThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.lock = threading.Lock()
+        self.end = False
+
+    def run(self):
+        while True:
+            MailboxAPI.MailboxRepository.ResendPassword()
+            time.sleep(10)
+            self.lock.acquire()
+            if self.end:
+                self.lock.release()
+                break
+            self.lock.release()
+
+    def stop(self):
+        self.lock.acquire()
+        self.end = True
+        self.lock.release()
