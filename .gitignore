@@ -2,3 +2,4 @@
 .vscode/
 *.db
 API/Config.py
+.DS_Store
