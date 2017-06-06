@@ -1,4 +1,6 @@
 import sqlite3
+import ClientAPI
+import MailboxAPI
 
 def InitializeDatabase():
     conn = sqlite3.connect('Emailbox.db')
@@ -48,8 +50,6 @@ def AddSystemData():
     conn.close()
 
 if __name__ == "__main__":
-    from API import ClientAPI
-    from API import MailboxAPI
     InitializeDatabase()
     AddSystemData()
     clients = ClientAPI.ClientRepository.GetAll()

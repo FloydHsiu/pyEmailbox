@@ -4,8 +4,8 @@ import random
 import string
 import hashlib
 import binascii
-from API import MailSender
-from API import Config
+import MailSender
+import Config
 
 class Mailbox:
     def __init__(self, id, inused):
@@ -96,6 +96,7 @@ class MailboxRepository:
                     client_email_address = cursor.fetchone()
                     sendMailThread = MailSender.SendPasswordMailThread(client_email_address[0], pwd)
                     sendMailThread.start()
+                    sendMailThread.join()
 
         conn.commit()
         conn.close()

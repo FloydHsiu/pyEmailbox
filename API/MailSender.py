@@ -1,6 +1,6 @@
 import smtplib
 import threading
-from API import Config
+import Config
 
 def SendEmail(user, pwd, recipient, subject, body):
 
