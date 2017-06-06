@@ -13,6 +13,10 @@ class Mailbox:
         self.inused = inused
 
 class MailboxRepository:
+
+    def __init__(self):
+        pass
+
     @staticmethod
     def GetAll():
         conn = sqlite3.connect('Emailbox.db')
@@ -63,10 +67,36 @@ class MailboxRepository:
         insertData = (hashPwd, json.dumps(idList), client.id, )
         #bind the mailbox inused, and client id, password
         cursor.execute("INSERT INTO MAILBOX_BINDING VALUES(NULL,?,?,?,CURRENT_TIMESTAMP,0)", insertData)
-        #send password to client using Thread
-        body = 'Password:' + pwd
-        sendEmailThread = MailSender.SendMailThread(Config.GMAIL_ACCOUNT, Config.CMAIL_PASSWORD, client.email_address, 'Mailbox Password', body)
+        sendEmailThread = MailSender.SendPasswordMailThread(client.email_address, pwd)
         sendEmailThread.start()
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def ResendPassword():
+        conn = sqlite3.connect('Emailbox.db')
+        cursor = conn.cursor()
+        #get all unfinish mailbox_binding
+        cursor.execute('''SELECT CLIENT_ID, (strftime('%s','now') - strftime('%s', LAST_REMIND_TIME))
+                        FROM MAILBOX_BINDING 
+                        WHERE FINISH=0
+                        ''')
+        orders = cursor.fetchall()
+        if orders is not None:
+            for order in orders:
+                client_id = order[0]
+                last_remind = order[1]
+                if last_remind > 3600*20:
+                    #change password
+                    pwd = ''.join(random.choice(string.digits) for _ in range(8))
+                    pwdHashing = MailboxRepository.PwdHashing(pwd)
+                    cursor.execute("UPDATE MAILBOX_BINDING SET PWD=?, LAST_REMIND_TIME=CURRENT_TIMESTAMP", (pwdHashing,))
+                    #send password to client
+                    cursor.execute("SELECT EMAIL_ADDRESS FROM CLIENTS WHERE ID=?", (client_id,))
+                    client_email_address = cursor.fetchone()
+                    sendMailThread = MailSender.SendPasswordMailThread(client_email_address[0], pwd)
+                    sendMailThread.start()
+
         conn.commit()
         conn.close()
 

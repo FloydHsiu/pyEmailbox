@@ -41,7 +41,18 @@ def AddSystemData():
     cursor.execute("INSERT INTO MAILBOXES VALUES(NULL, 0)")
 
     #Add Your Own Data
-    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '4F','Test', 'Test', 'test@test.com')")
+    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '4F','Test', 'Test', 'floydhsiu@gmail.com')")
+    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '5F','Test', 'Test', 'test@test.com')")
 
     conn.commit()
     conn.close()
+
+if __name__ == "__main__":
+    from API import ClientAPI
+    from API import MailboxAPI
+    InitializeDatabase()
+    AddSystemData()
+    clients = ClientAPI.ClientRepository.GetAll()
+    assign = MailboxAPI.MailboxRepository.Assign(1)
+    MailboxAPI.MailboxRepository.ConfirmAssign(assign, clients[0])
+    MailboxAPI.MailboxRepository.ResendPassword()

@@ -6,4 +6,4 @@ HASHING_TIMES = 500
 #Gmail Account for Sending System Email
 #You need to set up account id and password
 GMAIL_ACCOUNT = None
-CMAIL_PASSWORD = None
+GMAIL_PASSWORD = None

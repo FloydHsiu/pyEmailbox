@@ -1,6 +1,6 @@
 import smtplib
 import threading
-import time
+from API import Config
 
 def SendEmail(user, pwd, recipient, subject, body):
 
@@ -18,23 +18,23 @@ def SendEmail(user, pwd, recipient, subject, body):
         # SMTP_SSL Example
         server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         server_ssl.ehlo() # optional, called by login()
-        server_ssl.login(gmail_user, gmail_pwd)  
-        # ssl server doesn't support or need tls, so don't call server_ssl.starttls() 
+        server_ssl.login(gmail_user, gmail_pwd)
+        # ssl server doesn't support or need tls, so don't call server_ssl.starttls()
         server_ssl.sendmail(FROM, TO, message)
         #server_ssl.quit()
         server_ssl.close()
-        print 'successfully sent the mail'
+        return True
     except:
-        print "failed to send mail"
+        return False
 
-class SendMailThread(threading.Thread):
-    def __init__(self, user, pwd, recipient, subject, body):
+class SendPasswordMailThread(threading.Thread):
+    def __init__(self, recipient, pwd):
         threading.Thread.__init__(self)
-        self.user = user
-        self.pwd = pwd
+        self.user = Config.GMAIL_ACCOUNT
+        self.pwd = Config.GMAIL_PASSWORD
         self.recipient = recipient
-        self.subject = subject
-        self.body = body
+        self.subject = 'Mailbox Password'
+        self.body = 'Password:' + pwd
     
     def run(self):
         SendEmail(self.user, self.pwd, self.recipient, self.subject, self.body)
