@@ -11,7 +11,7 @@ GMAIL_ACCOUNT = None
 GMAIL_PASSWORD = None
 ```
 
-2. 到 /API/CreateDatabase.py 內的AddSystemData將自己的資料加入系統
+2. 到 /API/CreateDatabase.py 內的AddSystemData將自己的資料加入系統
 
 ```python
 #Add Your Own Data
