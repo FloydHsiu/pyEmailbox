@@ -8,7 +8,7 @@ The System is designed to improve the delivery efficiency by helping people to r
     
 ## How to Use
 ### - Hardware
-You will need the following stuffs to assemble, also you can find GPIO definitions in **Emailbox****.py**, then you can search for the datasheet of [L293D](http://www.ti.com/lit/ds/symlink/l293.pdf) to wire them up!
+You will need the following stuffs to assemble, also you can find GPIO definitions in **Emailbox** **.py**, then you can search for the datasheet of [L293D](http://www.ti.com/lit/ds/symlink/l293.pdf) to wire them up!
 1. Raspberry Pi 3
 2. Electromagnetic * 2
 3. L293D ic chip
