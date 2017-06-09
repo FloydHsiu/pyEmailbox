@@ -9,6 +9,6 @@ setup(
         'Programming Language :: Python :: 2.7',
     ],
     author = 'floydxiu, AristoChen',
-    packages = ['API'],
+    py_modules = ['Emailbox'],
     install_requires = []
 )
