@@ -49,6 +49,8 @@ class MailboxRepository:
     def PwdHashing(pwd):
         dk = hashlib.pbkdf2_hmac(Config.HASHING_ALGORITHM, pwd, Config.HASHING_SALT, Config.HASHING_TIMES)
         hashPwd = binascii.hexlify(dk)
+        #For debugging
+        #print 'Password: ' + pwd + '=>' + hashPwd
         return hashPwd
 
     @staticmethod
