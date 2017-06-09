@@ -15,7 +15,7 @@ GMAIL_PASSWORD = None
 
 ```python
 #Add Your Own Data
-    cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '1F', 'Wei-Ming', 'Chen', 'test@gmail.com')")
+cursor.execute("INSERT INTO CLIENTS VALUES(NULL, '1F', 'Wei-Ming', 'Chen', 'test@gmail.com')")
 ```
 
 3. 安裝(Install it)
